@@ -1,5 +1,5 @@
 Implementation Guidelines for Automated Web Crawler Sandbox Analysis
-Michael Lizauckas
+
 1. Environment Setup
 •	Python:
 Ensure you have Python 3.8 or higher installed on your host machine.
@@ -82,3 +82,4 @@ o	A faster private VM with a preload
 o	Better tracking software
 o	Better scoring (possibly in combination with AI)
 o	Better User interface
+
