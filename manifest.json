@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Sandbox Controller",
+  "version": "1.0",
+  "description": "Send URL to Sandbox Controller for analysis",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Run Sandbox Analysis"
+  }
+}

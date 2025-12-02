@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sandbox Controller</title>
+  <style>
+    body { font-family: Arial, sans-serif; width: 300px; padding: 15px; }
+    input[type="text"] { width: 100%; padding: 8px; margin-bottom: 10px; }
+    button { padding: 8px 12px; }
+    #status { margin-top: 10px; font-size: 0.9em; color: green; }
+  </style>
+</head>
+<body>
+  <h3>Analyze URL in Sandbox</h3>
+  <input id="urlInput" type="text" placeholder="Enter or drag URL here" />
+  <button id="analyzeBtn">Run Analysis</button>
+  <div id="status"></div>
+
+  <script>
+    const urlInput = document.getElementById('urlInput');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const statusDiv = document.getElementById('status');
+
+    // Support drag and drop URL
+    urlInput.addEventListener('dragover', e => {
+      e.preventDefault();
+    });
+    urlInput.addEventListener('drop', e => {
+      e.preventDefault();
+      const data = e.dataTransfer.getData('text/plain');
+      urlInput.value = data;
+    });
+
+    analyzeBtn.onclick = async () => {
+      const url = urlInput.value.trim();
+      if (!url) {
+        statusDiv.style.color = 'red';
+        statusDiv.textContent = 'Please enter a URL.';
+        return;
+      }
+      statusDiv.style.color = 'black';
+      statusDiv.textContent = 'Sending request...';
+
+      try {
+        const response = await fetch('http://localhost:5000/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+        if (response.ok) {
+          const result = await response.json();
+          statusDiv.style.color = 'green';
+          statusDiv.textContent = 'Analysis started: ' + result.message;
+        } else {
+          statusDiv.style.color = 'red';
+          statusDiv.textContent = 'Failed to start analysis.';
+        }
+      } catch (err) {
+        statusDiv.style.color = 'red';
+        statusDiv.textContent = 'Error connecting to backend.';
+      }
+    };
+  </script>
+</body>
+</html>
