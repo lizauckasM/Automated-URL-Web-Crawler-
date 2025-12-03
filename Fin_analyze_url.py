@@ -6,7 +6,7 @@ from playwright.sync_api import sync_playwright
 
 
 #Usage: python analyze_url.py "https://example.com"
-
+#does NOT print to terminal check txt file
 
 
 
@@ -195,3 +195,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     analyze(sys.argv[1])
+
